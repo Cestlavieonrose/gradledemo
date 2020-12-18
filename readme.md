@@ -36,9 +36,13 @@ Groovy
 8. 弱类型
 9. 方法括号可选
 10. 字符串可以单引号和双引号
+11. 集合api
 >示例：
 ```groovy
+
+//弱类型 代码结尾；可以不写
 def version = 2
+//字符串
 def s1 = 'test'
 def s2 = "hello ${version}"
 def s3 = '''
@@ -46,6 +50,46 @@ hello
 my name is anna
 i'm 4 years old
 '''
+//方法括号可选
+println(s1)
+println s2
+
+//集合api
+def buildTools = ['ant', 'maven']
+buildTools << 'gradle'
+//断言
+asset buildTools.getClass() == ArrayList
+asset buildTools.size() == 3
+
+//map
+def buildYears = ['ant':2000, 'maven':2004]
+buildYears.gradle = 2009
+
+println buildYears.ant
+println buildYears['gradle']
+asset buildYears.getClass() == LinkedHashMap
+
+//closure
+def c1 = {
+	v ->
+		print v
+}
+
+def c2 = {
+	print 'hello'
+}
+
+def method1(Closure c) {
+	closure('param')
+}
+
+def method2(Closure c) {
+	closure()
+}
+
+method1 c1
+method2 c2
+
 ```
 
 
