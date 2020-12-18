@@ -36,6 +36,19 @@ Groovy
 8. 弱类型
 9. 方法括号可选
 10. 字符串可以单引号和双引号
+>示例：
+```groovy
+def version = 2
+def s1 = 'test'
+def s2 = "hello ${version}"
+def s3 = '''
+hello
+my name is anna
+i'm 4 years old
+'''
+```
+
+
 
 
 
