@@ -1,10 +1,20 @@
-gradle安装与环境配置
-=========
-mac
---------
+
+- [1. gradle安装与环境配置](#1-gradle安装与环境配置)
+	- [1.1. mac](#11-mac)
+- [2. Groovy](#2-groovy)
+	- [2.1. 基本介绍](#21-基本介绍)
+
+
+------------
+
+
+# 1. gradle安装与环境配置
+
+## 1.1. mac
+
 1. 编辑bash_profile文件：
 ```shell
-vi ~/.bash_profile
+	vi ~/.bash_profile
 ```
 2. 加入以下内容
 ```shell
@@ -22,10 +32,10 @@ source ~/.bash_profile
 gradle -v
 ```
 
-Groovy
-=======
-基本介绍
-------
+# 2. Groovy
+
+## 2.1. 基本介绍
+
 1. 运行在jvm上的一种脚本语言
 2. 完全兼容java语法
 3. 分号可选
@@ -91,8 +101,4 @@ method1 c1
 method2 c2
 
 ```
-
-
-
-
 
