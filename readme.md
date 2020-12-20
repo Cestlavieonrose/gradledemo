@@ -3,6 +3,10 @@
 	- [1.1. mac](#11-mac)
 - [Gradle简介](#gradle简介)
 	- [特性](#特性)
+	- [构建三个阶段](#构建三个阶段)
+	- [task](#task)
+	- [关键字](#关键字)
+	- [常用命令](#常用命令)
 - [2. Groovy](#2-groovy)
 	- [2.1. 基本介绍](#21-基本介绍)
 
@@ -36,9 +40,22 @@ gradle -v
 
 # Gradle简介
 ## 特性
-1. 两个概念：项目，任务
-2. 每一个构建至少包含一个项目，每个build.gradle就是一个项目
-3. 每个项目至少包含1到多个任务，任务包含对个**动作对象**，一个动作对象就是一个待执行的代码块，类似java的方法
+1. 两个概念：project，task
+2. 每一个构建至少包含一个陪project，每个build.gradle就是一个project
+3. 每个project至少包含1到多个task，task包含若干个个**动作对象**，一个动作对象就是一个待执行的代码块，类似java的方法
+## 构建三个阶段
+1. Initialization：gradle决定将那些project参与到构建，并为每一个project创建一个Project实例，参与构建的project信息在settings.gradle中定义
+2. Configuration：配置project实例，所有project脚本都将被执行。Task，configuration和许多其他对象将被创建和配置
+3. Execution：task依此被执行
+## task
+1. task可以依赖其他task
+2. task不能相互依赖
+## 关键字
+1. doLast:里面的代码块在第三阶段执行
+
+## 常用命令
+1. `gradle` ：只执行到第二阶段
+2. `gradle -q taskname`：执行到第三阶段，静默执行某个task，也就是只打印错误日志，不打印其他日志
 
 
 
