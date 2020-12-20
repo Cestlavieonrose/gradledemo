@@ -73,3 +73,23 @@ this is lib1
 this is lib2
 this is sub lib
  */
+
+ //dofirst 跳过任务
+ task root1 {
+     doLast {
+         println 'this is root1'
+     }
+ }
+ root1.doFirst {
+     boolean b = true
+     if (b)
+     //只能抛出这个一场 其他一场就直接报错！！！！
+        throw new StopExecutionException()
+ }
+
+ task sub1(dependsOn:root1) {
+     doLast {
+         println 'this is sub1'
+     }
+ }
+//zhu
