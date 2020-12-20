@@ -4,5 +4,64 @@ task firstgvy {
         println 'this is the first gradle'
     }
 }
+//执行命令：gradle -q firstgvy
+//输入结果：this is the first gradle
 
 
+task upper {
+    doLast {
+        String s = "txn gradle demo"
+        println "original:${s}"
+        println "uppercase:${s.toUpperCase()}"
+    }
+}
+//执行命令：gradle -q upper
+//输出结果：
+/**
+original:txn gradle demo
+uppercase:TXN GRADLE DEMO
+ */
+
+task numloop {
+    doLast {
+        4.times {
+            print "${it} "
+        }
+        println ''
+    }
+}
+//执行命令：gradle -q numloop
+//输出结果：0 1 2 3 
+
+task nodolast {
+    println 'this is inside'
+}
+println 'this is outside'
+
+
+
+//在configuration阶段就会执行以上的打印
+//执行命令：gradle
+//输出结果：
+/**
+this is inside
+this is outside
+ */
+ //执行命令2:gradle -q firstgvy
+ //输出结果：
+ /*
+this is inside
+this is outside
+this is the first gradle
+  */
+
+  task eachdemo {
+      doLast {
+          String s = 'hello world'
+          s.each {
+              print "${it}-"
+          }
+      }
+  }
+  //命令行：gradle -q eachdemo
+  //输出结果：h-e-l-l-o- -w-o-r-l-d-
