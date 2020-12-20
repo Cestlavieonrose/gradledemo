@@ -90,6 +90,7 @@ println buildYears['gradle']
 asset buildYears.getClass() == LinkedHashMap
 
 //closure
+//带参闭包
 def c1 = {
 	v ->
 		print v
@@ -99,6 +100,7 @@ def c2 = {
 	print 'hello'
 }
 
+//方法中当成参数
 def method1(Closure c) {
 	closure('param')
 }
@@ -109,6 +111,36 @@ def method2(Closure c) {
 
 method1 c1
 method2 c2
+
+//单个隐参数
+def cols3={
+            println "Hello ${it}"
+        }
+cols3("二狗")
+
+//each 遍历
+[1,2,3,4,5].each { println it}
+['张三':100,'李四':200,'王五':300].each { println it.key+":"+it.value}
+//find方法返回集合中符合某个判断标准的第一个值，在闭包中，集合元素使用的判断条件必须是bool表达式
+def num = [1,2,3,4].find{p->p>2}
+println num
+//findAll方法是遍历所有的元素并返回一个符合条件的列表
+map = ['张三':100,'李四':200,'王五':300].findAll {it.value>100}
+println map
+//collect将遍历某个集合，并使用闭包中的变换方法将集合中的元素转换成一个新值，collect方法返回的是由转换后的值所组成的列表
+def  staff= ["李铭":10,"李浩":20,"二狗":50]
+list=staff.collect {e->++e.value}
+println "staff:${list}"
+staff = staff.collect {e->++e.value;return e}
+println staff
+
+//inject可用于遍历集合，首先将需要传递的值和集合中遍历出来的元素传给闭包，此时其传递的值将作为一个处理结果然后在和下一个集合元素一起传给闭包，依次类推
+def factories = [2,3,4,5].inject(1){p,e->p*e}
+println "factories1:${factorials}"
+list = [2,3,4,5]
+def clos6 = {p,e->p*e}
+factories = list.inject (1,clos6)
+println "factories2:${factories}"
 
 ```
 
