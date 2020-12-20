@@ -4,6 +4,7 @@
 - [Gradle简介](#gradle简介)
 	- [特性](#特性)
 	- [构建三个阶段](#构建三个阶段)
+	- [task](#task)
 	- [关键字](#关键字)
 	- [常用命令](#常用命令)
 - [2. Groovy](#2-groovy)
@@ -46,6 +47,9 @@ gradle -v
 1. Initialization：gradle决定将那些project参与到构建，并为每一个project创建一个Project实例，参与构建的project信息在settings.gradle中定义
 2. Configuration：配置project实例，所有project脚本都将被执行。Task，configuration和许多其他对象将被创建和配置
 3. Execution：task依此被执行
+## task
+1. task可以依赖其他task
+2. task不能相互依赖
 ## 关键字
 1. doLast:里面的代码块在第三阶段执行
 
