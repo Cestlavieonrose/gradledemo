@@ -1,0 +1,75 @@
+task txn1 {
+    doLast {
+        println "root task"
+    }
+}
+
+task txn2(dependsOn: txn1) {
+    doLast {
+        println 'sub task'
+    }
+}
+//命令行：gradle -q txn2
+//输出结果：
+/*
+root task
+sub task
+ */
+
+//外部依赖
+ task root {
+     doLast {
+         println 'root task'
+     }
+ }
+
+ task sub {
+     doLast {
+         println 'sub task'
+     }
+ }
+
+ //sub.dependsOn root
+
+ project.tasks.sub.dependsOn root
+
+//closure依赖
+
+task lib1 {
+    doLast {
+        println 'this is lib1'
+    }
+}
+
+task lib2{
+    doLast {
+        println 'this is lib2'
+    }
+}
+
+task notlib1 {
+    doLast {
+        println 'this is not lib'
+    }
+}
+
+task sublib {
+    doLast {
+        println 'this is sub lib'
+    }
+}
+
+tasks.sublib.dependsOn {
+    tasks.findAll {
+        // task->
+        //     task.name.startsWith 'lib'
+        it.name.startsWith 'lib'
+
+    }
+}
+println tasks.getClass()
+/*
+this is lib1
+this is lib2
+this is sub lib
+ */
