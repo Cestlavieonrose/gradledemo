@@ -1,0 +1,8 @@
+//这句话的意思就是，为当前项目创建一个wrapper包，使用的gradle版本是2.0
+task firstgvy {
+    doLast {
+        println 'this is the first gradle'
+    }
+}
+
+
