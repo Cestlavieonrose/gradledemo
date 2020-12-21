@@ -1,0 +1,4 @@
+ext {
+    versionn = '1.1'
+    url = "www.klt.com"
+}
