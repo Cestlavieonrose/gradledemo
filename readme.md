@@ -7,6 +7,7 @@
 	- [task](#task)
 	- [关键字](#关键字)
 	- [常用命令](#常用命令)
+	- [二进制插件](#二进制插件)
 - [2. Groovy](#2-groovy)
 	- [2.1. 基本介绍](#21-基本介绍)
 
@@ -57,6 +58,20 @@ gradle -v
 1. `gradle` ：只执行到第二阶段
 2. `gradle -q taskname`：执行到第三阶段，静默执行某个task，也就是只打印错误日志，不打印其他日志
 
+## 二进制插件
+1. 内部插件：gradle自带的插件
+2. 第三方插件
+3. 用法：
+   1. 写法1:
+   `apply pl ugin:org.gradle.api.javaPlugin`
+   2. 写法2:
+   ```groovy
+   plugin {
+	   id 'java'
+   }
+   ```
+   - 注：默认下包名不需要加
+   - 任何插件都实现了 Plugin接口，该接口只有一个方法 apply
 
 
 # 2. Groovy
