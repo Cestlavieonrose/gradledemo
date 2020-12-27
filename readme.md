@@ -8,6 +8,7 @@
 	- [关键字](#关键字)
 	- [常用命令](#常用命令)
 	- [二进制插件](#二进制插件)
+	- [Java插件](#java插件)
 - [2. Groovy](#2-groovy)
 	- [2.1. 基本介绍](#21-基本介绍)
 
@@ -72,7 +73,41 @@ gradle -v
    ```
    - 注：默认下包名不需要加
    - 任何插件都实现了 Plugin接口，该接口只有一个方法 apply
+  ## Java插件
+  1. 功能:java插件是构建JVM的基础，有诸如编译，测试，打包，发布等功能，很多插件都是基于java插件实现的，如安卓插件
+      - 依赖管理
+      - 增加都属性
+      - 增加的任务
+      - 用法
+         ```groovy
+		plugins {
+			id 'java'
+		}
+		```
+      - 源集
+        - java引入了源集的概念，他在逻辑上表示一组用于编译执行的源文件，这些源文件可能包含代码或者资源。
+        - 一个源集包含一个想关联的编译类路径和运行时类路径
+        - java插件就是通过源集的概念来管理源代码目录的
+        - 源集的一个用途是把源文件进行逻辑上的分组，以描述他们的目的，例如你可能会使用一个源集来定义一个集成测试的套件，或者会使用源集来定义项目的API和实现类。
+        - java插件提供了两个标准源集：
+          - main包含了项目源码，被编译生成jar包
+          - test包含了单元测试源代码，他们将被编译并使用JUnit或TestNG来执行
+        - 源集提供了很多属性，以下例举几个重要属性
+  
+| 属性                | 类型               | 默认值                                               | 描述                                        |
+| ------------------- | ------------------ | ---------------------------------------------------- | ------------------------------------------- |
+| name只读            | string             | 非空                                                 | 源集的名字                                  |
+| output只读          | SourceSetOutput    | 非空                                                 | 源集输出文件，包括他编译过的类和资源        |
+| output.classesDirs  | FileCollection     | eg:build/classes/java/main                           | 原集编译过的class文件目录                   |
+| output.resourcesDir | File               | build/resources/main                                 | 源集产生的资源目录                          |
+| java                | SourceDirectorySet | ${project.projectdir}/src/ \n {sourceSet.name}/java/ | 源集的java源代码，只包含.java，排除其他文件 |
+| java.outputDir | Set | sec/main/java | 源集的java源文件的源目录，是一个集合，可以设置多个源码目录，更改源码目录就是更改这个属性
+| java.srcDir | File | build/classes/java/main | 源代码编译的class文件输出路径 |
+|  resources | SourceDirectorySet | ${project.projectdir}/src/ \n {sourceSet.name}/resources | 源集的资源目录，只包含资源 |
+| resources.srcDirs | Set | src/${name}/resources | 源集的资源目录，是一个集合，可以指定多个 |
 
+
+  
 
 # 2. Groovy
 
@@ -175,5 +210,9 @@ factories = list.inject (1,clos6)
 println "factories2:${factories}"
 
 ```
+
+
+
+
 
 
