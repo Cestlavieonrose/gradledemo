@@ -58,6 +58,7 @@ gradle -v
 ## 常用命令
 1. `gradle` ：只执行到第二阶段
 2. `gradle -q taskname`：执行到第三阶段，静默执行某个task，也就是只打印错误日志，不打印其他日志
+3. `gradle -q taskname -x taskname2`：排除taskname2执行
 
 ## 二进制插件
 1. 内部插件：gradle自带的插件
