@@ -1,0 +1,11 @@
+def buildTime() {
+    def date = new Date()
+    def formatDate = date.format('yyyyMMdd')
+    return formatDate
+}
+
+task ex38Task {
+    doFirst {
+        println "cur time: ${buildTime()}"
+    }
+}

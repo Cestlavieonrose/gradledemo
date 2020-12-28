@@ -1,0 +1,13 @@
+//任务之间通过API交互，控制
+task ex36Hello {
+    
+}
+
+ex36Hello.doFirst {
+        println 'dofirst1'
+    }
+ex36Hello.doLast {
+        println 'dolast1'
+        println project.hasProperty('ex36Hello')
+        println project.hasProperty('ch03_eg3')//false
+    }

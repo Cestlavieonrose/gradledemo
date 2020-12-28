@@ -1,0 +1,17 @@
+rootProject.name = 'android-gradle-demo'
+
+include ':ch03_eg1'
+project(':ch03_eg1').projectDir = new File(rootDir, 'ch03/eg1')
+
+include ':ch03_eg2'
+project(':ch03_eg2').projectDir = new File(rootDir, 'ch03/eg2')
+
+include ':ch03_eg3'
+project(':ch03_eg3').projectDir = new File(rootDir, 'ch03/eg3')
+
+include ':ch03_eg4'
+project(':ch03_eg4').projectDir = new File(rootDir, 'ch03/eg4')
+
+include ':ch03_eg5'
+project(':ch03_eg5').projectDir = new File(rootDir, 'ch03/eg5')
+

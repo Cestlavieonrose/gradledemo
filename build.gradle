@@ -1,0 +1,23 @@
+subprojects {
+    repositories {
+        apply plugin:'java'
+        //为所有子项目统一配置仓库
+        jcenter()
+    }
+}
+
+// task wrapper(type: Wrapper) {
+//     gradleVersion = '2.4'
+//     archiveBase = 'GRADLE_USER_HOME'
+//     archivePath = 'wraper/dists'
+//     distributionBase = 'GRADLE_USER_HOME'
+//     distributionPath = 'wraper/dists'
+//     distributionUrl = 'https\://services.gradle.org/distributions/gradle-2.4-all.zip'
+
+// }
+
+// task hello {
+//     doLast {
+//         logger.info
+//     }
+// }

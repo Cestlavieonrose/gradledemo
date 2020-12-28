@@ -1,0 +1,36 @@
+
+//自定义属性
+//自定一个project属性
+ext.age = 18
+//通过代码块定义多个
+ext {
+    name = 'meimei'
+    phone = 138385438
+
+}
+
+sourceSets.all {
+    ext.resourcesDir = null
+}
+
+sourceSets {
+    main {
+        resourcesDir = 'main/res'
+    }
+
+    test {
+        resourcesDir = 'test/res'
+    }
+}
+
+task ex37Task {
+    doFirst {
+        println "年龄：${age}"
+        println "名字：${name}"
+        println "电话：${phone}"
+
+        sourceSets.each {
+            println "${it.name}的 resourcedir is :${it.resourcesDir}"
+        }
+    }
+}
