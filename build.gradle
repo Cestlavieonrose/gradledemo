@@ -1,8 +1,0 @@
-
-apply from: 'other.gradle'
-
-task test {
-    doLast {
-        println "version:${versionn}, url:${url}"
-    }
-}
