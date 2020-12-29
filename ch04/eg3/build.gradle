@@ -1,0 +1,8 @@
+//任务分组和描述
+Task mytask = task mytask
+mytask.description = 'my task'
+//通过 gradlew tasks 查看归类
+mytask.group = BasePlugin.BUILD_GROUP
+mytask.doLast {
+    println "group:${group}, desc:${description}"
+}

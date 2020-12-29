@@ -1,0 +1,14 @@
+//任务排序
+task ex46task1 {
+    doLast {
+        println 'ex46task1 do last'
+    }
+}
+
+task ex46task2 {
+    doLast {
+        println 'ex46task2 do last'
+    }
+}
+
+ex46task1.shouldRunAfter(ex46task2)

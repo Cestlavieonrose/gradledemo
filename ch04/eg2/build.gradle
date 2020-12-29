@@ -1,0 +1,18 @@
+//多种方式访问任务
+task eg42Accesstask1 
+eg42Accesstask1.doLast {
+    println 'eg42Accesstask1 do last'
+}
+
+tasks['eg42Accesstask1'].doFirst {
+        println 'eg42Accesstask1 do first'
+
+}
+
+task eg42Accesstask2
+tasks['eg42Accesstask2'].doLast {
+    println tasks.findByPath(":ch04_eg2:eg42Accesstask2")
+    println tasks.getByPath(":ch04_eg2:eg42Accesstask2")
+    println tasks.findByPath(":ch04_eg2:eg42Accesstask2aaaa")
+    // println tasks.getByPath(":ch04_eg2:eg42Accesstask2aaaa")//throw exception if not find
+}

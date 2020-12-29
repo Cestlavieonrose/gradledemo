@@ -15,3 +15,30 @@ project(':ch03_eg4').projectDir = new File(rootDir, 'ch03/eg4')
 include ':ch03_eg5'
 project(':ch03_eg5').projectDir = new File(rootDir, 'ch03/eg5')
 
+include ':ch04_eg1'
+project(':ch04_eg1').projectDir = new File(rootDir, 'ch04/eg1')
+
+include ':ch04_eg2'
+project(':ch04_eg2').projectDir = new File(rootDir, 'ch04/eg2')
+
+include ':ch04_eg3'
+project(':ch04_eg3').projectDir = new File(rootDir, 'ch04/eg3')
+
+include ':ch04_eg4'
+project(':ch04_eg4').projectDir = new File(rootDir, 'ch04/eg4')
+
+include ':ch04_eg5'
+project(':ch04_eg5').projectDir = new File(rootDir, 'ch04/eg5')
+
+include ':ch04_eg6'
+project(':ch04_eg6').projectDir = new File(rootDir, 'ch04/eg6')
+
+include ':ch04_eg7'
+project(':ch04_eg7').projectDir = new File(rootDir, 'ch04/eg7')
+
+include ':ch04_eg8'
+project(':ch04_eg8').projectDir = new File(rootDir, 'ch04/eg8')
+
+include ':ch04_eg9'
+project(':ch04_eg9').projectDir = new File(rootDir, 'ch04/eg9')
+

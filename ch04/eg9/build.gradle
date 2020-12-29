@@ -1,0 +1,16 @@
+//任务规则
+tasks.addRule('对该规则的一个描述，便于查看和调试') {
+    String taskName ->
+    task taskName, {
+        doLast {
+            println "任务${name}不存在"
+        }
+    }
+}
+
+task ex49task {
+    dependsOn misstask
+    doLast {
+        println 'ex49task do last'
+    }
+}

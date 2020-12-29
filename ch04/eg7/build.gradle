@@ -1,0 +1,7 @@
+//任务的启用和禁用
+task ex47task1 {
+    doLast {
+        println 'ex47task1 do last'
+    }
+}
+ex47task1.enabled = false

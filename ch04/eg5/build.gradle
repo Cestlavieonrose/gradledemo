@@ -1,0 +1,17 @@
+//任务的执行顺序分析
+class CustomTask extends DefaultTask {
+    @TaskAction
+    def doSelf122()
+    {
+        println 'do self'
+    }
+}
+
+def Task myTask = task ex55task1(type:CustomTask)
+myTask.doFirst {
+    println 'do first'
+}
+
+myTask.doLast {
+    println 'do last'
+}

@@ -1,0 +1,101 @@
+//任务的 onlyif 断言
+//gradlew :ch04_eg8:buildapk -Pbuild_apps=notshoufa
+final String ALL = 'all'
+final String SHOUFA = 'shoufa'
+final String NOTSHOUFA = 'notshoufa'
+
+task ex48QQ {
+    doLast {
+        println 'build qq apk'
+    }
+}
+
+task ex48baidu {
+    doLast {
+        println 'build baidu apk'
+    }
+}
+
+task ex48huawei {
+    doLast {
+        println 'build huawei apk'
+    }
+}
+
+task ex48xiaomi {
+    doLast {
+        println 'build xiaomi apk'
+    }
+}
+
+task buildapk {
+    description '打渠道包'
+    group BasePlugin.BUILD_GROUP
+    dependsOn ex48QQ, ex48baidu, ex48huawei, ex48xiaomi
+}
+
+ex48QQ.onlyIf {
+    def excute = false
+    if (project.hasProperty('build_apps')) {
+        Object buildapps = project.property('build_apps')
+        if (ALL.equals(buildapps) || SHOUFA.equals(buildapps)) {
+            excute = true
+        } else {
+            excute = false
+        }
+
+    } else {
+        excute = true
+    }
+    excute
+}
+
+ex48baidu.onlyIf {
+    def excute = false
+    if (project.hasProperty('build_apps')) {
+        Object buildapps = project.property('build_apps')
+        if (ALL.equals(buildapps) || SHOUFA.equals(buildapps)) {
+            excute = true
+        } else {
+            excute = false
+        }
+
+    } else {
+        excute = true
+    }
+    excute
+}
+
+ex48huawei.onlyIf {
+    def excute = false
+    if (project.hasProperty('build_apps')) {
+        Object buildapps = project.property('build_apps')
+        if (ALL.equals(buildapps) || NOTSHOUFA.equals(buildapps)) {
+            excute = true
+        } else {
+            excute = false
+        }
+
+    } else {
+        excute = true
+    }
+    excute
+}
+
+ex48xiaomi.onlyIf {
+    def excute = false
+    if (project.hasProperty('build_apps')) {
+        Object buildapps = project.property('build_apps')
+        if (ALL.equals(buildapps) || NOTSHOUFA.equals(buildapps)) {
+            excute = true
+        } else {
+            excute = false
+        }
+
+    } else {
+        excute = true
+    }
+    excute
+}
+
+

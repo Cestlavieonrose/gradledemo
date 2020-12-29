@@ -1,0 +1,22 @@
+//各种创建任务的方法
+def Task ex41task1 = task(ex41task1)
+ex41task1.doLast {
+    println 'ex41task1 do last'
+}
+
+def Task ex41task2 = task(ex41task2, group: BasePlugin.BUILD_GROUP)
+ex41task2.doLast {
+    println "ex41task2 do last"
+    println "任务分组：${ex41task2.group}"
+}
+
+//名字加闭包的形式
+task ex41task3 {
+    description '演示任务创建'
+    doLast {
+        println '创建方法的原型为：Task task(String name, Closure config)'
+        println "任务描述：${description}"
+    }
+}
+
+

@@ -1,0 +1,5 @@
+//<<操作符 可以代替 doLast 6.8 版本似乎不支持了
+// task(ex44oper) << {
+//     println "ex44oper << do last"
+// }
+
