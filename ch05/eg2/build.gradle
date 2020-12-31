@@ -1,0 +1,47 @@
+//插件应用2 
+
+//应用插件
+
+// apply from: 'version.gradle'
+
+// task ex52task1 {
+//     doLast {
+//         println "App的版本是：${versionName}, 版本号是:${versionCode}"
+//     }
+// }
+
+
+//闭包方式调用
+// apply {
+//     plugin 'java'
+// }
+
+
+//或者这样调用
+// apply (new Action<ObjectConfigurationAction>() {
+//     @Override
+//     void execute(ObjectConfigurationAction obj) {
+//         obj.plugin('java')
+//     }
+// })
+
+//远程下载并应用第三方插件
+// buildscript {
+//     repositories {
+//         jcenter()
+//     }
+
+//     dependencies {
+//         classpath: 'com.android.tools.build:gradle:1.5.0'
+//     }
+
+
+// }
+// apply plugin: 'com.android.application'
+
+//DSL 应用插件 这种方法的好处就是如果第三方插件已经在 plugins.gradle.org里面有了 就不需要在buildscript里配置classpath了
+// plugins {
+//     id 'java'
+//     id 'org.snowfly' version '1.2'
+// }
+

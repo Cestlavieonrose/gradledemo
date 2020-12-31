@@ -42,3 +42,21 @@ project(':ch04_eg8').projectDir = new File(rootDir, 'ch04/eg8')
 include ':ch04_eg9'
 project(':ch04_eg9').projectDir = new File(rootDir, 'ch04/eg9')
 
+include ':ch05_eg1'
+project(':ch05_eg1').projectDir = new File(rootDir, 'ch05/eg1')
+
+include ':ch05_eg2'
+project(':ch05_eg2').projectDir = new File(rootDir, 'ch05/eg2')
+
+include ':ch05_eg3'
+project(':ch05_eg3').projectDir = new File(rootDir, 'ch05/eg3')
+
+include ':ch06_eg5'
+project(':ch06_eg5').projectDir = new File(rootDir, 'ch06/eg5')
+
+include ':ch06_eg8_app'
+project(':ch06_eg8_app').projectDir = new File(rootDir, 'ch06/eg8/app')
+
+include ':ch06_eg8_base'
+project(':ch06_eg8_base').projectDir = new File(rootDir, 'ch06/eg8/base')
+

@@ -9,19 +9,19 @@ ext {
 
 }
 
-sourceSets.all {
-    ext.resourcesDir = null
-}
+// sourceSets.all {
+//     ext.resourcesDir = null
+// }
 
-sourceSets {
-    main {
-        resourcesDir = 'main/res'
-    }
+// sourceSets {
+//     main {
+//         resourcesDir = 'main/res'
+//     }
 
-    test {
-        resourcesDir = 'test/res'
-    }
-}
+//     test {
+//         resourcesDir = 'test/res'
+//     }
+// }
 
 task ex37Task {
     doFirst {

@@ -1,0 +1,17 @@
+//如果创建一个供他人使用的插件
+//
+
+
+
+//第一步：创建这个文件
+// META-INF/gradle-plugins/com.github.rujews.plugins.ex53customplugin.properties
+//加入以下内容  key 为 implementation-class 固定不变, value 就是我们自定义的插件的实现类,我这里是
+// implementation-class=com.github.rujews.plugins.Ex530CustomPlugin
+
+
+// buildscript {
+//     dependencies {
+//         classpath files ('libs/example53.jar')
+//     }
+// }
+// apply plugin: 'com.github.rujews.plugins.ex53customplugin'

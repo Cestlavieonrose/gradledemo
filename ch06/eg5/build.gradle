@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/java'
+        }
+
+        resources {
+            srcDir 'src/resources'
+        }
+    }
+}
+
+task ex65task {
+    sourceSets.all {
+        println name
+    }
+}

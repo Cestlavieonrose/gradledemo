@@ -1,0 +1,14 @@
+
+//自定义插件
+apply plugin: Ex53CustomPlugin
+
+class Ex53CustomPlugin implements Plugin<Project>
+{
+    void apply(Project project) {
+        project.task('ex53') {
+            doLast {
+                println 'custom plugin ex53'
+            }
+        }
+    }
+}

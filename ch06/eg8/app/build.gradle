@@ -1,0 +1,11 @@
+
+apply plugin: 'java'
+dependencies {
+    compile project(':ch06_eg8_base');
+}
+
+task publishJar(type: Jar)
+
+artifacts {
+    archives publishJar
+}
