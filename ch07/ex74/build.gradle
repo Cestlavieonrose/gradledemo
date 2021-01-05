@@ -1,0 +1,85 @@
+apply 'version.gradle'
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    useLibrary 'org.apache.http.legacy' //optional可选库，一般是兼容旧版本的api， 另外就是add-one库，第三方开发但是不想暴露实现
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
+
+    defaultConfig {
+        applicationId 'org.flysnow.app.ex74'
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode appVersionCode
+        versionName appVersionName
+        signingConfig signingConfigs.debug
+    }
+    buildTypes {
+        release {
+            minifyEnabled false //是否启用混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            zipAlignEnabled false //发布前使用，更快读取资源，降低内存的使用
+
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('myreleasekey.kestore')
+            storePassword '1111'
+            keyAlias 'myreleasekey'
+            keyPassword 'password'
+        } 
+        //debug模式下的正式android sdk已经为我们默认配置好了，不需要额外配置
+        debug {
+            storeFile file('myreleasekey.kestore')
+            storePassword '1111'
+            keyAlias 'myreleasekey'
+            keyPassword 'password'
+        }
+    }
+
+    productFlavors {
+        google {
+
+        }
+    }
+
+    //生成不同的apk名字
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk')
+                && 'release'.equals(output.buildType.name)) {
+                    def flavorName = variant.flavorName.startWith('_') ? variant.flavorName.substring(1) : variant.flavorName
+                    def apkFile = new File(output.outputFile.getParent(), "ex74_${flavorName}_v${variant.versionName}_${buildTime()}.apk")
+                    output.outputFile = apkFile
+                }
+
+        }
+
+    }
+}
+
+dependencies {
+    compile fileTree(dir:'libs', include:['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support.appcompat-v7:23.1.1'
+    compile 'om.android.support:design:23.1.1'
+}
+
+def buildTime() {
+    def newTime = new Date()
+    def fTime = newTime.format('yyyyMMdd')
+    return fTime
+}
