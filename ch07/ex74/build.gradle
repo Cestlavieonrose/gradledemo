@@ -15,14 +15,42 @@ android {
     useLibrary 'org.apache.http.legacy' //optional可选库，一般是兼容旧版本的api， 另外就是add-one库，第三方开发但是不想暴露实现
     compileSdkVersion 23
     buildToolsVersion '23.0.1'
+    //默认情况下发布的是release版本，通过这个配置可以发布debug版本
+    defaultPublishConfig 'debug'
+    defaultConfig 'baidudebug'
+    //一个库工程同时发布多个版本的aar包 需要开启这个
+    publishNonDefault true
+
+    //java编译项
+    compileOptions {
+        encoding = 'utf-8'
+        //java源码编译级别
+        sourceCompatibility = JavaVersion.VERSION_1_6
+        //java字节码版本
+        targetCompatibility = JavaVersion.VERSION_1_6
+    }
+
+    adbOptions {
+        timeOutInMs = 5*1000//执行adb命令的超时时间
+        installOptions '-r', '-s', '-d'
+    }
+
+    dexOptions {
+        incremental true  //是否启用增量模式 默认为false 目前还有很多限制，有可能不工作，要慎用
+        javaMaxHeapSize '4g' //分配最大堆内存
+        jumboMode true //突破android5以下 65535个方法的限制
+        preDexLibraries true //是否预知性dex Libraries 默认也为true 如果配置了muti-dex的时候最好关闭 不然会冲突
+
+    }
 
     defaultConfig {
         applicationId 'org.flysnow.app.ex74'
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode appVersionCode
-        versionName appVersionName
+        versionCode getAppVersionCode //appVersionCode //这个是从version.gradle中获取的
+        versionName getAppVersionName()
         signingConfig signingConfigs.debug
+        multiDexEnabled true //android5以下 如果要启用多个dex class 就需要配置这个 5.0以后天然支持
     }
     buildTypes {
         release {
@@ -30,16 +58,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             zipAlignEnabled false //发布前使用，更快读取资源，降低内存的使用
+            //运行命令可查看哪些资源被清理了:gradlew clean :ex74:assembleRelease --info | grep "unused resource"
+            shrinkResources true //打包的时候自动清理无用的资源 但是通过反射调用的资源也会被清理 可以创建一个keep.xml来保证不被清理
+            resConfigs 'zh' //googleplay service 这种大库 可以清理多语言，保留我们需要的
 
         }
     }
 
     signingConfigs {
+        //可以放在环境变量中
+        def appStoreFile = System.getenv('STORE_FILE')
+        def appStorePwd = System.getenv('STORE_PWD')
+        def appKeyAlias = System.getenv('KEY_ALIAS')
+        def appKeyPwd = System.getenv('KEY_PASSWORD')
+
+        //当不能从环境变量中获取到签名信息的时候，就使用项目中自带的debug签名
+        if (!appStoreFile || !appStorePwd || !appKeyAlias || !appKeyPwd) {
+            appStoreFile = 'debug.store'
+            appStorePwd = 'android'
+            appKeyAlias = 'androiddebugkey'
+            appKeyPwd = 'android'
+        }
+
         release {
-            storeFile file('myreleasekey.kestore')
-            storePassword '1111'
-            keyAlias 'myreleasekey'
-            keyPassword 'password'
+            storeFile file(appStoreFile)
+            storePassword appStorePwd
+            keyAlias appKeyAlias
+            keyPassword appKeyPwd
         } 
         //debug模式下的正式android sdk已经为我们默认配置好了，不需要额外配置
         debug {
@@ -49,11 +94,51 @@ android {
             keyPassword 'password'
         }
     }
+    //优先级：abi>version>defaultconfig
+    flavorDimensions 'abi', 'version'
 
     productFlavors {
         google {
+            useJack true //使用jack编译器
+            applicationId 'com.xxx.xxx'
+            testApplicationId 'com.xxx.xxx.test'
+            consumerProguardFile 'xxx.pro', 'xxx.txt' //适用于安卓aar包
+            //androidmanifest.xml中如果指定了  "${UMENG_CHANNEL}"
+            manifestPlaceholders.put('UMENG_CHANNEL', 'google')
+            //自动生成的BuildConfig.java中添加属性
+            buildConfigField 'String', 'WEB_URL', '"http://www.goole.com"'
+            //自动生成build/generated/res/resValues/google/debug/values/generated.xml
+            resValue 'string', 'channel_tips', 'google渠道欢迎你'
 
         }
+
+        baidu {
+            manifestPlaceholders.put('UMENG_CHANNEL', 'baidu')
+            buildConfigField 'String', 'WEB_URL', '"http://www.baidu.com"'
+
+        }
+
+        free {
+            dimension 'version'
+        }
+
+        paid {
+            dimension 'version'
+        }
+
+        x86 {
+            dimension 'abi'
+        }
+
+        arm {
+            dimension 'abi'
+        }
+        //ArmFreeRelease ArmPaidRelease X86FreeRelease X86PaidRelease
+    }
+    //上面的可以这么写 更方便
+    productFlavors.all {
+        flavor ->
+        manifestPlaceholders.put('UMENG_CHANNEL', name)
     }
 
     //生成不同的apk名字
@@ -75,7 +160,13 @@ dependencies {
     compile fileTree(dir:'libs', include:['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.appcompat-v7:23.1.1'
-    compile 'om.android.support:design:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:multidex:1.0.1'
+
+    compile project(':ch07_eg4_lib1')
+    //同个库发布出两个不同渠道的包
+    compile project(path:':ch07_eg4_lib2', configurations: 'favar1Release')
+    compile project(path:':ch07_eg4_lib2', configurations: 'favar2Release')
 }
 
 def buildTime() {
@@ -83,3 +174,26 @@ def buildTime() {
     def fTime = newTime.format('yyyyMMdd')
     return fTime
 }
+//执行命令行：git describe 00abbrev=0 --tags
+def getAppVersionName() {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--abbrev=0', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString()
+}
+ 
+//执行命令行：git tag --list
+def getAppVersionCode() {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'tag', '--lisy'
+        standardOutput = stdout
+    }
+    return stdout.toString().split('\n').size()
+}
+
+//task：assemble[favorname][buildtype]  
+//assemblebaidu:百度渠道的debug和release apk
+//assemblerelease：所有渠道的release apk

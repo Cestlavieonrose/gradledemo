@@ -60,3 +60,12 @@ project(':ch06_eg8_app').projectDir = new File(rootDir, 'ch06/eg8/app')
 include ':ch06_eg8_base'
 project(':ch06_eg8_base').projectDir = new File(rootDir, 'ch06/eg8/base')
 
+include ':ch07_eg4_app'
+project(':ch07_eg4_app').projectDir = new File(rootDir, 'ch07/eg74/app')
+
+include ':ch07_eg4_lib1'
+project(':ch07_eg4_lib1').projectDir = new File(rootDir, 'ch07/eg74/libraies/lib1')
+
+include ':ch07_eg4_lib2'
+project(':ch07_eg4_lib2').projectDir = new File(rootDir, 'ch07/eg74/libraies/lib2')
+
